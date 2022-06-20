@@ -1,0 +1,12 @@
+---
+development:
+  dialect: "sqlite3"
+  database: /Users/ytjohn/go/gonetninja_gonetninja_development.sqlite
+
+test:
+  dialect: "sqlite3"
+  database: /Users/ytjohn/go/gonetninja_gonetninja_test.sqlite
+
+production:
+  dialect: "sqlite3"
+  database: /Users/ytjohn/go/gonetninja_gonetninja_production.sqlite
