@@ -64,7 +64,14 @@ func App() *buffalo.App {
 		app.Use(translations())
 
 		app.GET("/", HomeHandler)
-
+		app.GET("/nets", NetListHandler).Name("netlistPath")
+		app.POST("/nets", CreateNetHandler).Name("netCreatePath")
+		app.GET("/nets/new", NewNetFormHandler).Name("netnewPath")
+		//app.GET("/nets/{id}", func(c buffalo.Context) error {
+		//	return c.Render(200, r.String(c.Param("id")))
+		//})
+		app.GET("/nets/{id}", NetHandler).Name("netViewPath")
+		app.GET("/activity", NetActivityHandler).Name("activityPath")
 		app.ServeFiles("/", http.FS(public.FS())) // serve files from the public directory
 	}
 
