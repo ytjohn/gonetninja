@@ -1,0 +1,44 @@
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="subtitle">
+      <div class="container">
+        <h3>
+          <a href="<%= netlistPath() %>">Net List</a>
+          :: <a href="<%= netViewPath({id: net.ID}) %>"><%= net.Name %></a>
+          :: <a href="<%= netnewPath() %>">New Net</a>
+        </h3>
+      </div>
+
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr text-align="left">
+          <th>NAME</th>
+          <th>Scheduled Start</th>
+          <th>Scheduled End</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <td class="left">
+            <a href="<%= netViewPath({id: net.ID}) %>"><%= net.Name %></a>
+
+          </td>
+          <td>
+            <%= net.PlannedStart %>
+          </td>
+          <td>
+            <%= net.PlannedEnd %>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,55 @@
-# Welcome to Buffalo
+# Welcome to Net Ninja
 
-Thank you for choosing Buffalo for your web development needs.
+Net Ninja lets amateur radio net control operators record net times, checkins, and comments.
+
+## Development notes
+
+- /nets - page displaying nets
+- /activity - page displaying net activity, most commonly filtered by net id
+
+
+## tables
+
+Nets
+
+- id (uuid)
+- name
+- planned start
+- planned finish
+
+```sqlite
+sqlite> insert into nets values (uuid(), strftime('%Y-%m-%d %H-%M-%S','now'), strftime('%Y-%m-%d %H-%M-%S','now'), "test two", strftime('%Y-%m-%d %H-%M-%S','now'), strftime('%Y-%m-%d %H-%M-%S','now'));
+sqlite> insert into nets values (uuid(), strftime('%Y-%m-%d %H-%M-%S','now'), strftime('%Y-%m-%d %H-%M-%S','now'), "test three", strftime('%Y-%m-%d %H-%M-%S','now'), strftime('%Y-%m-%d %H-%M-%S','now'));
+sqlite> select * from nets;
+c31911fc-5d3c-4b18-b4b1-1e081aa6effd|2022-06-20 23-47-29|2022-06-20 23-47-29|test one|2022-06-20 23-47-29|2022-06-20 23-47-29
+ccad3aad-c9ea-4891-a604-8d02e0968ce8|2022-06-20 23-47-47|2022-06-20 23-47-47|test two|2022-06-20 23-47-47|2022-06-20 23-47-47
+66b685a9-ea20-4a14-b766-4d23f362be4b|2022-06-20 23-48-17|2022-06-20 23-48-17|test three|2022-06-20 23-48-17|2022-06-20 23-48-17
+```
+
+
+Net Activity
+
+- id (uuid)
+- created (auto)
+- updated (auto)
+- netid (foreign key)
+- entered_by (username)
+- time_at (manual, with suggestion by frontend ui)
+- action
+  - open
+  - assign (assign net control)
+  - checkin
+  - checkout
+  - comment
+  - close
+- callsign
+- details
+
+
+
+By making it an activity trail, we can have people check in before the net opens
+(early checkins), open the net, close the net, check poeple out of the net early,
+add comments, change net control
 
 ## Database Setup
 
