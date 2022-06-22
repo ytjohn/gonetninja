@@ -4,7 +4,7 @@
 
 header {
   background-color: #62a5ee;
-  padding: 10px 20px;
+  padding: 10px 2t0px;
   box-sizing: border-box;
 }
 
@@ -49,13 +49,16 @@ header {
   color: white;
   margin: 0;
   padding: 13px 0;
-  background-color: #2a3543;
+  background-color: #000000;
   margin-bottom: 20px;
-
   h3 {
     font-size: 22px;
     font-weight: 400;
     margin: 0;
+  }
+  a {
+    color: white;
+    text-decoration: underline;
   }
 }
 
@@ -67,6 +70,8 @@ table {
     padding: 10px;
   }
 }
+
+
 
 .foot {
   text-align: right;

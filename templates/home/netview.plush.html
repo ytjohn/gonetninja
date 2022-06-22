@@ -13,21 +13,40 @@
 
     </div>
 
+    <h2><%= net.Name %></h2>
+    <p><b>Net Control Operator<%= if (len(netcontrols) > 1) { %>s (<%= len(netcontrols) %>)<% } %>:
+      <%= for (n) in netcontrols { %>
+        <%= n %>
+      <% } %>
+      </b>
+    <br />
+    <b>Net Participant<%= if (len(participants) > 1) { %>s (<%= len(participants) %>)<% } %>:
+        <%= for (p) in participants { %> <%= p %><% } %>
+      </b>
+    </p>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
         <tr text-align="left">
-          <th>NAME</th>
-          <th>Scheduled Start</th>
-          <th>Scheduled End</th>
+          <th>Net</th>
+          <th>Start</th>
+          <th>End</th>
         </tr>
         </thead>
         <tbody>
 
         <tr>
+          <td>Actual</td>
+          <td>
+            <%= if (!opened.IsZero()) { %>  <b><%= opened %></b> <% } else { %> - <% } %>
+          </td>
+          <td>
+            <%= if (!closed.IsZero()) { %> <b><%= closed %></b>  <% } else { %> - <% } %>
+          </td>
+        </tr>
+        <tr>
           <td class="left">
-            <a href="<%= netViewPath({id: net.ID}) %>"><%= net.Name %></a>
-
+            Scheduled
           </td>
           <td>
             <%= net.PlannedStart %>
@@ -39,6 +58,48 @@
 
         </tbody>
       </table>
+
+
+      <h3>Net Activity</h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr text-align="left">
+            <th>Action</th>
+            <th>Flag</th>
+            <th>Callsign/Name</th>
+            <th>Description</th>
+            <th>At</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= for (activity) in activities { %>
+            <tr class="activity-<%= activity.Action %>">
+            <td>
+              <%= activity.Action %>
+            </td>
+            <td>
+              <%= if ((activity.Action == "checkin") && (activity.TimeAt.Before(opened))) { %>
+              <i>early</i>
+              <% } else if ((activity.Action == "checkin") && (activity.TimeAt.After(closed))) { %>
+              <i>late</i>
+              <% } else { %>
+              <% } %>
+            </td>
+            <td class="left">
+              <%= activity.Name %>
+            </td>
+            <td>
+              <%= activity.Description %>
+            </td>
+            <td>
+              <%= activity.TimeAt %>
+            </td>
+
+          </tr>
+          <% } %>
+          </tbody>
+        </table>
     </div>
   </div>
 </div>
