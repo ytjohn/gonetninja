@@ -71,6 +71,7 @@ func App() *buffalo.App {
 		//	return c.Render(200, r.String(c.Param("id")))
 		//})
 		app.GET("/nets/{id}", NetHandler).Name("netViewPath")
+		app.POST("/nets/{id}/quick", QuickNetHandler).Name("quicknetPath")
 		app.GET("/activity", NetActivityHandler).Name("activityPath")
 		app.ServeFiles("/", http.FS(public.FS())) // serve files from the public directory
 	}
