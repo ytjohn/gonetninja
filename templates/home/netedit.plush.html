@@ -1,0 +1,112 @@
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="subtitle">
+      <div class="container">
+        <h3>
+          <a href="<%= netlistPath() %>">Net List</a>
+          :: <a href="<%= netViewPath({id: net.ID}) %>"><%= net.Name %></a>
+          :: <a href="<%= netnewPath() %>">New Net</a>
+        </h3>
+      </div>
+    </div>
+
+    <h2><%= net.Name %></h2>
+
+
+    <%= if (activities && len(activities) < 1) { %>
+    <%= partial("quicknetform.plush.html") %>
+    <% } %>
+    <p><b>Net Control Operator<%= if (len(netcontrols) > 1) { %>s (<%= len(netcontrols) %>)<% } %>:
+      <%= for (n) in netcontrols { %>
+        <%= n %>
+      <% } %>
+      </b>
+    <br />
+    <b>Net Participant<%= if (len(participants) > 1) { %>s (<%= len(participants) %>)<% } %>:
+        <%= for (p) in participants { %> <%= p %><% } %>
+      </b>
+    </p>
+    <a id="toggleeditor" title="toggle edit mode">
+      <i class="fas fa-user-edit" tooltip="toggle edit mode"></i>Toggle Edit Mode
+    </a>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr text-align="left">
+          <th>Net</th>
+          <th>Start</th>
+          <th>End</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <td>Actual</td>
+          <td>
+            <%= if (!opened.IsZero()) { %>  <b><%= opened %></b> <% } else { %> - <% } %>
+          </td>
+          <td>
+            <%= if (!closed.IsZero()) { %> <b><%= closed %></b>  <% } else { %> - <% } %>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">
+            Scheduled
+          </td>
+          <td>
+            <%= net.PlannedStart %>
+          </td>
+          <td>
+            <%= net.PlannedEnd %>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+
+
+      <h3>Net Activity</h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr text-align="left">
+            <th>Action</th>
+            <th>Flag</th>
+            <th>Callsign/Name</th>
+            <th>Description</th>
+            <th>At</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= for (activity) in activities { %>
+            <tr class="activity-<%= activity.Action %>">
+            <td>
+              <%= activity.Action %>
+            </td>
+            <td>
+              <%= if ((activity.Action == "checkin") && (activity.TimeAt.Before(opened))) { %>
+              <i>early</i>
+              <% } else if ((activity.Action == "checkin") && (activity.TimeAt.After(closed))) { %>
+              <i>late</i>
+              <% } else { %>
+              <% } %>
+            </td>
+            <td class="left">
+              <%= activity.Name %>
+            </td>
+            <td>
+              <%= activity.Description %>
+            </td>
+            <td>
+              <%= activity.TimeAt %>
+            </td>
+
+          </tr>
+          <% } %>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>

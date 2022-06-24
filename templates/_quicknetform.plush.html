@@ -1,0 +1,36 @@
+<div class="container">
+<p>This is a quick edit form. This will assume net control 5 minutes before the net, add early checkins
+    one minute prior to net open, regular checkins 30 seconds after net open, and close the net. You can make
+    changes and add comments afterwards. This form will be disabled if there is already recorded net activity.</p>
+    <%= form_for( quicknet, {action: quicknetPath({id: net.ID}), method: "POST"}) { %>
+    <%= if (errors) { %>
+        <%= errors %>
+    <% } %>
+    <div class="row ">
+        <div class="col-md-3">
+            <%= f.TextAreaTag("EarlyCheckins", {rows:7}) %>
+        </div>
+        <div class="col-md-3">
+            <%= f.TextAreaTag("RegularCheckins", {rows:7    }) %>
+        </div>
+        <div class="col-md-6">
+            <%= f.InputTag("NetControl") %>
+
+            <div class="form-group">
+                <label for="quicknet-opened">Open Net At</label>
+                <%= f.DateTimeTag("Opened", {value: net.PlannedStart.Format("2006-01-02T15:04")}) %>
+
+            </div>
+            <div class="form-group">
+                <label for="quicknet-closed">Close Net At</label>
+                <%= f.DateTimeTag("Closed", {value: net.PlannedEnd.Format("2006-01-02T15:04")}) %>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success" role="submit">Update</button>
+            </div>
+        </div>
+
+    </div>
+    <% } %>
+    <hr />
+</div>

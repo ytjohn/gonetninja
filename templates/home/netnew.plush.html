@@ -11,8 +11,8 @@
       </div>
     </div>
 
-      <h3>Here we go again, making a new form.</h3>
-
+      <h3>Schedule a new net</h3>
+    <%= if (errors) { %><%= errors %><% } %>
     <%= form_for( net, {action: netlistPath(), method: "POST"}) { %>
     <div class="row">
       <div class="col-md-12">
@@ -22,6 +22,7 @@
     <div class="row">
       <div class="col-md-12">
         <b>Start: </b><%= f.DateTimeTag("PlannedStart") %> - <b>End: </b><%= f.DateTimeTag("PlannedEnd") %>
+        <button class="btn btn-success" role="submit">Save</button>
       </div>
     </div>
     <% } %>
